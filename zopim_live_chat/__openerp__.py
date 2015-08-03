@@ -37,5 +37,5 @@
     'installable': True,
     'application': True,
     'price':4.99,
-    'curency':'USD',
+    'currency':'USD',
 }
