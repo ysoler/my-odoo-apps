@@ -14,8 +14,10 @@
 					<!--End of Zopim Live Chat Script-->
 					<script>
 						$zopim(function() {
-						$zopim.livechat.theme.setColors({badge: '#4C4C4C', primary: '#AEB9BD'});
-						$zopim.livechat.theme.reload(); // apply new theme settings
+							$zopim.livechat.theme.setColors({badge: '<t t-esc="badge"/>', primary: '<t t-esc="primary"/>'});
+							$zopim.livechat.theme.reload(); // apply new theme settings
+							$zopim.livechat.setName('<t t-esc="username"/>');
+							$zopim.livechat.setEmail('<t t-esc="email"/>');
 						});
 					</script>
 				</xpath>
