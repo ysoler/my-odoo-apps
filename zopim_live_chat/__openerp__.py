@@ -25,7 +25,7 @@
     'author': 'OpenDEV',
     'website': '',
     'category': 'Tools',
-    'summary': 'Zopim Live Chat',
+    'summary': 'Engage your customers using proactive chat',
     'description': """
         Zopim Live Chat for Odoo
     """,
