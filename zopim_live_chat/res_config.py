@@ -28,7 +28,7 @@ class ZopimConfiguration(models.TransientModel):
     key = fields.Char('Zopim Live Chat Key', required=True)
     color_primary = fields.Char('Primary Color', required=False)
     color_badge = fields.Char('Badge Color', required=False)
-    
+
     def get_default_key(self, cr, uid, ids, context=None):
         key = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.key", default=None, context=context)
         return {'key': key or False}
