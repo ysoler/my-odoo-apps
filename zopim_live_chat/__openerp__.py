@@ -36,6 +36,6 @@
     ],
     'installable': True,
     'application': True,
-    #'price':25.0,
-    #'currency':'EUR',
+    'price':25.0,
+    'currency':'EUR',
 }
