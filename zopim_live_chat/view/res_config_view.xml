@@ -15,12 +15,18 @@
                     <group string="General">
 			<field name="key" />
                     </group>
-                    <group string="Theme">
+                    <group string="Aparience">
+			<field name="theme"/>
+			<field name="layout"/>
 			<field name="color_primary" widget="color" placeholder="#FFFFFF"/>
 			<field name="color_badge" widget="color" placeholder="#FFFFFF"/>
                     </group>
 		    <group string="Supported Languages">
 			<field name="lang"/>
+                    </group>
+		    <group string="Greetings">
+			<field name="online_greetings"/>
+			<field name="offline_greetings"/>
                     </group>
                 </form>
             </field>

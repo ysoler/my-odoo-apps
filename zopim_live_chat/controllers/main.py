@@ -29,6 +29,26 @@ class MyHome(Home):
         lang = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.lang')
         return lang
 	
+    def get_zopim_online_greetings(self):
+        config = request.registry['ir.config_parameter']
+        online = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.online_greetings')
+        return online
+    
+    def get_zopim_offline_greetings(self):
+        config = request.registry['ir.config_parameter']
+        offline = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.offline_greetings')
+        return offline
+	
+    def get_zopim_theme(self):
+        config = request.registry['ir.config_parameter']
+        theme = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.theme')
+        return theme
+    
+    def get_zopim_layout(self):
+        config = request.registry['ir.config_parameter']
+        layout = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.layout')
+        return layout
+	
     @http.route('/web', type='http', auth="none")
     def web_client(self, s_action=None, **kw):
         ensure_db()
@@ -43,6 +63,11 @@ class MyHome(Home):
 	    badge = self.get_zopim_color_badge()
 	    primary = self.get_zopim_color_primary()
 	    lang = self.get_zopim_lang()
+	    online = self.get_zopim_online_greetings()
+	    offline = self.get_zopim_offline_greetings()
+	    theme = self.get_zopim_theme()
+	    layout = self.get_zopim_layout()
+	    
 	    user = request.registry['res.users'].browse(request.cr, request.uid, request.uid, context=request.context)
 	    
             return request.render('web.webclient_bootstrap', qcontext={'menu_data': menu_data, 
@@ -51,7 +76,11 @@ class MyHome(Home):
 								       'primary': primary, 
 								       'username': user.name, 
 								       'email': user.email, 
-								       'lang': lang})
+								       'lang': lang, 
+								       'online': online, 
+								       'offline': offline, 
+								       'theme': theme,
+								       'layout': layout})
         else:
             return login_redirect()
 

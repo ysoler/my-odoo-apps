@@ -19,6 +19,9 @@
 							$zopim.livechat.setName('<t t-esc="username"/>');
 							$zopim.livechat.setEmail('<t t-esc="email"/>');
 							$zopim.livechat.setLanguage('<t t-esc="lang"/>');
+							$zopim.livechat.theme.setTheme('<t t-esc="theme"/>');
+							$zopim.livechat.badge.setLayout('<t t-esc="layout"/>');
+							$zopim.livechat.setGreetings({online: '<t t-esc="online"/>', offline: '<t t-esc="offline"/>'});
 						});
 					</script>
 				</xpath>

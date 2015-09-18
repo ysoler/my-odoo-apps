@@ -85,11 +85,54 @@ class ZopimConfiguration(models.TransientModel):
     key = fields.Char('Zopim Live Chat Key', required=True)
     color_primary = fields.Char('Primary Color', required=False)
     color_badge = fields.Char('Badge Color', required=False)
-    lang = fields.Selection(SUPPORTED_LANGS, string='Language', default='en')
-
+    lang = fields.Selection(SUPPORTED_LANGS, string='Language')
+    online_greetings = fields.Char('Online')
+    offline_greetings = fields.Char('Offline')
+    theme = fields.Selection([('simple', 'Simple'), ('classic', 'Classic')], 'Theme')
+    layout = fields.Selection([('image_right', 'Image on right, text on left'), 
+				('image_left', 'Image on left, text on right'), 
+				('image_only', 'Image only'),
+				('text_only', 'Text only')
+			      ], 'Layout')
+    
+    def get_default_theme(self, cr, uid, ids, context=None):
+        theme = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.theme", default='classic', context=context)
+        return {'theme': theme or False}
+        
+    def set_theme(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "zopim_live_chat.theme", record.theme or False, context=context)
+	    
+    def get_default_layout(self, cr, uid, ids, context=None):
+        layout = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.layout", default='image_left', context=context)
+        return {'layout': layout or False}
+        
+    def set_layout(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "zopim_live_chat.layout", record.layout or False, context=context)
+	    
+    def get_default_online_greetings(self, cr, uid, ids, context=None):
+        online_greetings = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.online_greetings", default='Chat with us', context=context)
+        return {'online_greetings': online_greetings or False}
+        
+    def set_online_greetings(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "zopim_live_chat.online_greetings", record.online_greetings or False, context=context)
+	    
+    def get_default_offline_greetings(self, cr, uid, ids, context=None):
+        offline_greetings = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.offline_greetings", default='Leave us a message', context=context)
+        return {'offline_greetings': offline_greetings or False}
+        
+    def set_offline_greetings(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "zopim_live_chat.offline_greetings", record.offline_greetings or False, context=context)
 
     def get_default_lang(self, cr, uid, ids, context=None):
-        lang = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.lang", default=None, context=context)
+        lang = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.lang", default='en', context=context)
         return {'lang': lang or False}
         
     def set_lang(self, cr, uid, ids, context=None):
