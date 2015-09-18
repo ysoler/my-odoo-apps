@@ -24,6 +24,11 @@ class MyHome(Home):
         color_badge = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.color_badge')
         return color_badge
 	
+    def get_zopim_lang(self):
+        config = request.registry['ir.config_parameter']
+        lang = config.get_param(request.cr, SUPERUSER_ID, 'zopim_live_chat.lang')
+        return lang
+	
     @http.route('/web', type='http', auth="none")
     def web_client(self, s_action=None, **kw):
         ensure_db()
@@ -37,6 +42,7 @@ class MyHome(Home):
 	    key = self.get_zopim_key()
 	    badge = self.get_zopim_color_badge()
 	    primary = self.get_zopim_color_primary()
+	    lang = self.get_zopim_lang()
 	    user = request.registry['res.users'].browse(request.cr, request.uid, request.uid, context=request.context)
 	    
             return request.render('web.webclient_bootstrap', qcontext={'menu_data': menu_data, 
@@ -44,7 +50,8 @@ class MyHome(Home):
 								       'badge': badge, 
 								       'primary': primary, 
 								       'username': user.name, 
-								       'email': user.email})
+								       'email': user.email, 
+								       'lang': lang})
         else:
             return login_redirect()
 

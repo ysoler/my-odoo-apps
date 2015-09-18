@@ -21,6 +21,63 @@
 
 from openerp import models,fields
 
+SUPPORTED_LANGS = [
+    ('es', 'Spanish'),
+    ('en', 'English'),
+    ('af', 'Afrikaans'),
+    ('sq', 'Albanian'),
+    ('ar', 'Arabic'),
+    ('az', 'Azerbaijani'),
+    ('eu', 'Basque'),
+    ('bg', 'Bulgarian'),
+    ('ca', 'Catalan'),
+    ('zh_CN', 'Chinese (China)'),
+    ('zh_TW', 'Chinese (Taiwan)'),
+    ('hr', 'Croatian'),
+    ('cs', 'Czech'),
+    ('da', 'Danish'),
+    ('nl', 'Dutch'),
+    ('et', 'Estonian'),
+    ('fo', 'Faroese'),
+    ('fi', 'Finnish'),
+    ('fr', 'French'),
+    ('gl', 'Galician'),
+    ('ka', 'Georgian'),
+    ('de', 'German'),
+    ('el', 'Greek'),
+    ('he', 'Hebrew'),
+    ('hu','Hungarian'),
+    ('is', 'Icelandic'),
+    ('id', 'Indonesian'),
+    ('ga', 'Irish'),
+    ('it', 'Italian'),
+    ('ja', 'Japanese'),
+    ('ko', 'Korean'),
+    ('ku', 'Kurdish'),
+    ('lv', 'Latvian'),
+    ('lt', 'Lithuanian'),
+    ('mk', 'Macedonian'),
+    ('ms', 'Malay'),
+    ('mn', 'Mongolian'),
+    ('nb', 'Norwegian Bokmal'),
+    ('fa', 'Persian'),
+    ('pl', 'Polish'),
+    ('pt', 'Portuguese'),
+    ('pt_BR', 'Portuguese Brazil'),
+    ('ro', 'Romanian'),
+    ('ru', 'Russian'),
+    ('sr', 'Serbian'),
+    ('si', 'Sinhala'),
+    ('sk', 'Slovak'),
+    ('sl', 'Slovenian'),
+    ('sw', 'Swahili'),
+    ('sv', 'Swedish'),
+    ('th', 'Thai'),
+    ('tr', 'Turkish'),
+    ('uk', 'Ukrainian'),
+    ('ur', 'Urdu'),
+    ('vi', 'Vietnamese'),
+]
 class ZopimConfiguration(models.TransientModel):
     _name = 'zopim.config.settings'
     _inherit = 'res.config.settings'
@@ -28,6 +85,18 @@ class ZopimConfiguration(models.TransientModel):
     key = fields.Char('Zopim Live Chat Key', required=True)
     color_primary = fields.Char('Primary Color', required=False)
     color_badge = fields.Char('Badge Color', required=False)
+    lang = fields.Selection(SUPPORTED_LANGS, string='Language', default='en')
+
+
+    def get_default_lang(self, cr, uid, ids, context=None):
+        lang = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.lang", default=None, context=context)
+        return {'lang': lang or False}
+        
+    def set_lang(self, cr, uid, ids, context=None):
+        config_parameters = self.pool.get("ir.config_parameter")
+        for record in self.browse(cr, uid, ids, context=context):
+            config_parameters.set_param(cr, uid, "zopim_live_chat.lang", record.lang or False, context=context)
+
 
     def get_default_key(self, cr, uid, ids, context=None):
         key = self.pool.get("ir.config_parameter").get_param(cr, uid, "zopim_live_chat.key", default=None, context=context)

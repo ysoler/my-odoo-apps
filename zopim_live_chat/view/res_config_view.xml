@@ -7,17 +7,20 @@
             <field name="priority" eval="20"/>
             <field name="arch" type="xml">
                 <form string="Configure Zopim Live Chat" class="oe_form_configuration">
-					<header>
+		    <header>
                         <button string="Apply" type="object" name="execute" class="oe_highlight"/>
                         or
                         <button string="Cancel" type="object" name="cancel" class="oe_link"/>
                     </header>
                     <group string="General">
-						<field name="key" />
+			<field name="key" />
                     </group>
                     <group string="Theme">
-						<field name="color_primary" widget="color" placeholder="#FFFFFF"/>
-						<field name="color_badge" widget="color" placeholder="#FFFFFF"/>
+			<field name="color_primary" widget="color" placeholder="#FFFFFF"/>
+			<field name="color_badge" widget="color" placeholder="#FFFFFF"/>
+                    </group>
+		    <group string="Supported Languages">
+			<field name="lang"/>
                     </group>
                 </form>
             </field>

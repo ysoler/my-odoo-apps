@@ -18,6 +18,7 @@
 							$zopim.livechat.theme.reload(); // apply new theme settings
 							$zopim.livechat.setName('<t t-esc="username"/>');
 							$zopim.livechat.setEmail('<t t-esc="email"/>');
+							$zopim.livechat.setLanguage('<t t-esc="lang"/>');
 						});
 					</script>
 				</xpath>
