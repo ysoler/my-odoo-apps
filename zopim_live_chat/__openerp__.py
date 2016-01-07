@@ -38,4 +38,5 @@
     'application': True,
     'price':25.0,
     'currency':'EUR',
+    'license': 'GPL-3',
 }
